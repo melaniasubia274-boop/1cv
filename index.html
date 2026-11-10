@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sheyla Banegas | Técnica en Informática y Desarrollo Web</title>
+
+  <style>
+    :root {
+      --azul-oscuro: #12263f;
+      --azul: #1f4e8c;
+      --turquesa: #17a2b8;
+      --claro: #f4f7fb;
+      --texto: #2b3445;
+      --blanco: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      color: var(--texto);
+      background: var(--claro);
+      line-height: 1.6;
+    }
+
+    /* ---------- MENÚ ---------- */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 6%;
+      background: var(--azul-oscuro);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo {
+      color: var(--blanco);
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      color: #d6e2f3;
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.activo { color: var(--turquesa); }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--blanco);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* ---------- INICIO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 50px;
+      padding: 100px 8% 60px;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul) 70%, var(--turquesa));
+    }
+
+    .foto-box {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 6px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      background: var(--azul);
+    }
+
+    .foto-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .iniciales {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      font-weight: 700;
+    }
+
+    .hero-texto { max-width: 520px; }
+    .saludo { font-size: 1.2rem; color: #bfe9f0; }
+    .hero-texto h1 { font-size: 2.3rem; line-height: 1.2; margin: 6px 0 10px; }
+    .hero-texto h2 { font-size: 1.3rem; font-weight: 500; min-height: 1.9rem; color: #bfe9f0; }
+    .lugar { margin: 14px 0 24px; }
+
+    .boton {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--blanco);
+      color: var(--azul-oscuro);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .boton:hover { transform: translateY(-3px); background: #bfe9f0; }
+
+    /* ---------- SECCIONES ---------- */
+    .seccion { max-width: 950px; margin: 0 auto; padding: 70px 6%; }
+
+    .titulo {
+      font-size: 1.8rem;
+      color: var(--azul-oscuro);
+      margin-bottom: 30px;
+    }
+
+    .titulo::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin-top: 8px;
+      border-radius: 4px;
+      background: var(--turquesa);
+    }
+
+    .subtitulo { margin-top: 50px; }
+
+    .texto-grande {
+      font-size: 1.15rem;
+      background: var(--blanco);
+      padding: 26px;
+      border-left: 5px solid var(--turquesa);
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(18, 38, 63, 0.08);
+    }
+
+    /* ---------- TARJETAS ---------- */
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .tarjeta {
+      background: var(--blanco);
+      padding: 30px 22px;
+      text-align: center;
+      border-radius: 12px;
+      border-top: 4px solid var(--azul);
+      box-shadow: 0 4px 14px rgba(18, 38, 63, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 24px rgba(18, 38, 63, 0.18);
+    }
+
+    .icono { display: block; font-size: 2.4rem; margin-bottom: 10px; }
+    .tarjeta h3 { font-size: 1.05rem; color: var(--azul-oscuro); }
+
+    /* ---------- CHIPS ---------- */
+    .chips { display: flex; flex-wrap: wrap; gap: 14px; }
+
+    .chip {
+      padding: 10px 22px;
+      border-radius: 30px;
+      background: var(--azul);
+      color: var(--blanco);
+      font-weight: 500;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .chip:hover { background: var(--turquesa); transform: scale(1.06); }
+
+    /* ---------- EXPERIENCIA ---------- */
+    .linea-tiempo { border-left: 4px solid var(--turquesa); padding-left: 24px; }
+
+    .item-tiempo {
+      position: relative;
+      background: var(--blanco);
+      padding: 20px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(18, 38, 63, 0.08);
+    }
+
+    .item-tiempo::before {
+      content: "";
+      position: absolute;
+      left: -36px;
+      top: 24px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--azul-oscuro);
+      border: 3px solid var(--turquesa);
+    }
+
+    .item-tiempo h3 { color: var(--azul-oscuro); font-size: 1.1rem; }
+
+    /* ---------- PIE ---------- */
+    footer {
+      text-align: center;
+      padding: 24px;
+      background: var(--azul-oscuro);
+      color: #d6e2f3;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- ANIMACIÓN AL BAJAR ---------- */
+    .oculto {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .visible { opacity: 1; transform: translateY(0); }
+
+    /* ---------- CELULAR ---------- */
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: var(--azul-oscuro);
+        padding: 10px 0;
+      }
+
+      nav.abierto { display: flex; }
+      nav a { margin: 0; padding: 14px 6%; }
+      .hero { text-align: center; }
+      .hero-texto h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENÚ -->
+  <header class="navbar">
+    <a href="#inicio" class="logo">SB</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+    <nav id="menu">
+      <a href="#perfil">Perfil</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#fortalezas">Fortalezas</a>
+    </nav>
+  </header>
+
+  <!-- INICIO -->
+  <section class="hero" id="inicio">
+    <div class="foto-box">
+      <img src="foto.jpg" alt="Foto de Sheyla Banegas" id="foto">
+      <span class="iniciales" id="iniciales">SB</span>
+    </div>
+    <div class="hero-texto">
+      <p class="saludo">Hola, soy</p>
+      <h1>Sheyla Melania Nélida Banegas</h1>
+      <h2 id="escribiendo"></h2>
+      <p class="lugar">📍 Santa Lucía, Puno – Perú</p>
+      <a href="#proyectos" class="boton">Ver mis proyectos</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- PERFIL -->
+    <section id="perfil" class="seccion oculto">
+      <h2 class="titulo">Perfil</h2>
+      <p class="texto-grande">
+        Técnica en Informática con conocimientos en páginas web, redes y
+        proyectos con Arduino. Responsable, puntual y con ganas de trabajar.
+      </p>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades" class="seccion oculto">
+      <h2 class="titulo">¿En qué soy buena?</h2>
+      <div class="tarjetas">
+        <div class="tarjeta">
+          <span class="icono">🌐</span>
+          <h3>Aplicaciones web</h3>
+        </div>
+        <div class="tarjeta">
+          <span class="icono">🎬</span>
+          <h3>Producción Audiovisual y Multimedia</h3>
+        </div>
+      </div>
+
+      <h2 class="titulo subtitulo">Lenguajes</h2>
+      <div class="chips">
+        <span class="chip">HTML</span>
+        <span class="chip">CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Python básico</span>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="seccion oculto">
+      <h2 class="titulo">Mis proyectos</h2>
+      <div class="tarjetas">
+        <div class="tarjeta">
+          <span class="icono">🎨</span>
+          <h3>Página web con diseño CSS</h3>
+        </div>
+        <div class="tarjeta">
+          <span class="icono">🤖</span>
+          <h3>Proyecto con Arduino</h3>
+        </div>
+        <div class="tarjeta">
+          <span class="icono">🔌</span>
+          <h3>Proyecto de redes</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia" class="seccion oculto">
+      <h2 class="titulo">Prácticas / Experiencia</h2>
+      <div class="linea-tiempo">
+        <div class="item-tiempo">
+          <h3>Prácticas en soporte técnico y redes</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORTALEZAS -->
+    <section id="fortalezas" class="seccion oculto">
+      <h2 class="titulo">Fortalezas</h2>
+      <div class="chips">
+        <span class="chip">Aprendo rápido</span>
+        <span class="chip">Trabajo en equipo</span>
+        <span class="chip">Responsable y puntual</span>
+        <span class="chip">Creativa y ordenada</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="anio"></span> Sheyla Melania Nélida Banegas · Santa Lucía, Puno – Perú</p>
+  </footer>
+
+  <script>
+    // 1. Año automático en el pie de página
+    document.getElementById("anio").textContent = new Date().getFullYear();
+
+    // 2. Menú para celular
+    const menuBtn = document.getElementById("menuBtn");
+    const menu = document.getElementById("menu");
+
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("abierto");
+    });
+
+    menu.querySelectorAll("a").forEach((enlace) => {
+      enlace.addEventListener("click", () => menu.classList.remove("abierto"));
+    });
+
+    // 3. Si la foto no carga, mostrar las iniciales
+    const foto = document.getElementById("foto");
+    const iniciales = document.getElementById("iniciales");
+
+    function mostrarIniciales() {
+      foto.style.display = "none";
+      iniciales.style.display = "flex";
+    }
+    foto.addEventListener("error", mostrarIniciales);
+    if (foto.complete && foto.naturalWidth === 0) mostrarIniciales();
+
+    // 4. Efecto de escritura en el subtítulo
+    const texto = "Técnica en Informática y Desarrollo Web";
+    const escribiendo = document.getElementById("escribiendo");
+    let i = 0;
+
+    function escribir() {
+      if (i <= texto.length) {
+        escribiendo.textContent = texto.slice(0, i);
+        i++;
+        setTimeout(escribir, 60);
+      }
+    }
+    escribir();
+
+    // 5. Las secciones aparecen suavemente al bajar
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) entrada.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll(".oculto").forEach((s) => observador.observe(s));
+
+    // 6. Resaltar en el menú la sección donde estás
+    const enlaces = document.querySelectorAll("nav a");
+
+    window.addEventListener("scroll", () => {
+      let actual = "";
+      document.querySelectorAll("main section").forEach((sec) => {
+        if (window.scrollY >= sec.offsetTop - 120) actual = sec.id;
+      });
+      enlaces.forEach((a) => {
+        a.classList.toggle("activo", a.getAttribute("href") === "#" + actual);
+      });
+    });
+  </script>
+
+</body>
+</html>
